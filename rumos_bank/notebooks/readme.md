@@ -1,6 +1,19 @@
 # Notebooks folder
 
-# 1. Correr os notebooks do número 1 ao 5
+# 1. Correr apenas o notebook 2.
+Fui construindo os notebooks da mesma forma que aprendemos na aula para ser mais fácil estruturar o projeto.
+
+Em primeiro lugar criei o notebook 1, onde:
+- Criei um tracking URI
+- Criei uma experiência
+- Usei o mlflow para logar e registar os modelos
+
+No notebook 2:
+- Criei um Model Registry com base no que já tinha feito
+- Com base no conhecimento adquirido registei o melhor modelo mlflow.register_model()
+- Criei uma pipeline
+
+
 
 # 2. Para o mlflow no final de cada notebook correr o seguinte código para visualizar as runs dentro da experiência: Rumos Bank Experiment
 
