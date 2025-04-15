@@ -1,0 +1,120 @@
+import pytest
+import pandas as pd
+import mlflow
+
+
+@pytest.fixture(scope="module")
+def model() -> mlflow.pyfunc.PyFuncModel:
+    # Definindo o caminho do MLflow
+    mlflow.set_tracking_uri("./mlruns")
+    model_name = "random_forest"  # Nome do modelo
+    model_version = 1  # Versão do modelo
+    # Carregar o modelo do MLflow
+    return mlflow.pyfunc.load_model(
+        model_uri=f"models:/{model_name}/{model_version}"
+    )
+
+
+def test_model_out(model: mlflow.pyfunc.PyFuncModel):
+    # Exemplo de input para o modelo (um cliente sem calote)
+    input_data = pd.DataFrame.from_records([{
+        'LIMIT_BAL': 50000,  # Quantidade de crédito
+        'SEX': 1,  # Gênero (1 = masculino, 2 = feminino)
+        'EDUCATION': 2,  # Grau de educação (1 = pós-graduação, 2 = universitário, ...)
+        'MARRIAGE': 1,  # Estado civil (1 = casado, 2 = solteiro, ...)
+        'AGE': 30,  # Idade
+        'PAY_0': 0,  # Status de pagamento (0 = pagamento em dia)
+        'PAY_2': 0,  # Status de pagamento mês anterior
+        'PAY_3': 0,  # Status de pagamento 2 meses atrás
+        'PAY_4': 0,  # Status de pagamento 3 meses atrás
+        'PAY_5': 0,  # Status de pagamento 4 meses atrás
+        'PAY_6': 0,  # Status de pagamento 5 meses atrás
+        'BILL_AMT1': 1000,  # Fatura do mês atual
+        'BILL_AMT2': 900,  # Fatura do mês anterior
+        'BILL_AMT3': 950,  # Fatura 2 meses atrás
+        'BILL_AMT4': 980,  # Fatura 3 meses atrás
+        'BILL_AMT5': 1000,  # Fatura 4 meses atrás
+        'BILL_AMT6': 1100,  # Fatura 5 meses atrás
+        'PAY_AMT1': 200,  # Pagamento feito no mês atual
+        'PAY_AMT2': 200,  # Pagamento feito no mês anterior
+        'PAY_AMT3': 150,  # Pagamento 2 meses atrás
+        'PAY_AMT4': 180,  # Pagamento 3 meses atrás
+        'PAY_AMT5': 200,  # Pagamento 4 meses atrás
+        'PAY_AMT6': 190   # Pagamento 5 meses atrás
+    }])
+
+    # Prever o valor de "default.payment.next.month"
+    prediction = model.predict(data=input_data)
+
+    # Verificar se a previsão foi 0 (sem calote) ou 1 (com calote)
+    assert prediction[0] in [0, 1]
+
+
+def test_model_inv(model: mlflow.pyfunc.PyFuncModel):
+    # Exemplo de input para o modelo (um cliente com pagamento atrasado)
+    input_data = pd.DataFrame.from_records([{
+        'LIMIT_BAL': 50000,  # Quantidade de crédito
+        'SEX': 1,  # Gênero (1 = masculino, 2 = feminino)
+        'EDUCATION': 2,  # Grau de educação
+        'MARRIAGE': 1,  # Estado civil
+        'AGE': 30,  # Idade
+        'PAY_0': 2,  # Status de pagamento (2 = pagamento com atraso de 2 meses)
+        'PAY_2': 2,  # Status de pagamento mês anterior (2 meses de atraso)
+        'PAY_3': 1,  # Status de pagamento 2 meses atrás (1 mês de atraso)
+        'PAY_4': 0,  # Status de pagamento 3 meses atrás (pagamento em dia)
+        'PAY_5': 0,  # Status de pagamento 4 meses atrás (pagamento em dia)
+        'PAY_6': 0,  # Status de pagamento 5 meses atrás (pagamento em dia)
+        'BILL_AMT1': 1000,  # Fatura do mês atual
+        'BILL_AMT2': 900,  # Fatura do mês anterior
+        'BILL_AMT3': 950,  # Fatura 2 meses atrás
+        'BILL_AMT4': 980,  # Fatura 3 meses atrás
+        'BILL_AMT5': 1000,  # Fatura 4 meses atrás
+        'BILL_AMT6': 1100,  # Fatura 5 meses atrás
+        'PAY_AMT1': 200,  # Pagamento feito no mês atual
+        'PAY_AMT2': 200,  # Pagamento feito no mês anterior
+        'PAY_AMT3': 150,  # Pagamento 2 meses atrás
+        'PAY_AMT4': 180,  # Pagamento 3 meses atrás
+        'PAY_AMT5': 200,  # Pagamento 4 meses atrás
+        'PAY_AMT6': 190   # Pagamento 5 meses atrás
+    }])
+
+    # Prever o valor de "default.payment.next.month"
+    prediction = model.predict(data=input_data)
+
+    # Verificar se a previsão foi 0 (sem calote) ou 1 (com calote)
+    assert prediction[0] in [0, 1]
+
+
+def test_model_out_shape(model: mlflow.pyfunc.PyFuncModel):
+    # Exemplo de input para o modelo
+    input_data = pd.DataFrame.from_records([{
+        'LIMIT_BAL': 50000,  # Quantidade de crédito
+        'SEX': 1,  # Gênero
+        'EDUCATION': 2,  # Grau de educação
+        'MARRIAGE': 1,  # Estado civil
+        'AGE': 30,  # Idade
+        'PAY_0': 0,  # Status de pagamento
+        'PAY_2': 0,  # Status de pagamento mês anterior
+        'PAY_3': 0,  # Status de pagamento 2 meses atrás
+        'PAY_4': 0,  # Status de pagamento 3 meses atrás
+        'PAY_5': 0,  # Status de pagamento 4 meses atrás
+        'PAY_6': 0,  # Status de pagamento 5 meses atrás
+        'BILL_AMT1': 1000,  # Fatura do mês atual
+        'BILL_AMT2': 900,  # Fatura do mês anterior
+        'BILL_AMT3': 950,  # Fatura 2 meses atrás
+        'BILL_AMT4': 980,  # Fatura 3 meses atrás
+        'BILL_AMT5': 1000,  # Fatura 4 meses atrás
+        'BILL_AMT6': 1100,  # Fatura 5 meses atrás
+        'PAY_AMT1': 200,  # Pagamento feito no mês atual
+        'PAY_AMT2': 200,  # Pagamento feito no mês anterior
+        'PAY_AMT3': 150,  # Pagamento 2 meses atrás
+        'PAY_AMT4': 180,  # Pagamento 3 meses atrás
+        'PAY_AMT5': 200,  # Pagamento 4 meses atrás
+        'PAY_AMT6': 190   # Pagamento 5 meses atrás
+    }])
+
+    # Prever o valor de "default.payment.next.month"
+    prediction = model.predict(data=input_data)
+
+    # Verificar a forma da previsão (se deve ser um vetor de uma única previsão)
+    assert prediction.shape == (1, )
