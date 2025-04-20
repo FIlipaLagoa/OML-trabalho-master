@@ -85,8 +85,9 @@ async def startup_event():
     in the local mlruns directory.
     """
 
-    mlflow.set_tracking_uri("./mlruns")
-    
+    mlflow.set_tracking_uri("file:///C:/Users/User/python_programing/OML-trabalho-master/rumos_bank/mlruns")
+
+
     with open('./config/app.json') as f:
         config = json.load(f)
 
