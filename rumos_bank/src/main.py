@@ -86,7 +86,7 @@ async def startup_event():
     in the local mlruns directory.
     """
 
-    mlflow.set_tracking_uri("http://localhost:5000")  # ou o endereço onde o MLflow server está a correr
+    mlflow.set_tracking_uri("http://localhost:5000")  
 
 
     with open('./config/app.json') as f:

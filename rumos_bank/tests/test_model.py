@@ -6,7 +6,7 @@ import mlflow
 @pytest.fixture(scope="module")
 def model() -> mlflow.pyfunc.PyFuncModel:
     # Definindo o caminho do MLflow
-    mlflow.set_tracking_uri("./mlruns")
+    mlflow.set_tracking_uri("http://localhost:5000")  
     model_name = "random_forest"  # Nome do modelo
     model_version = 1  # Versão do modelo
     # Carregar o modelo do MLflow
@@ -121,3 +121,36 @@ def test_model_out_shape(model: mlflow.pyfunc.PyFuncModel):
 
     # Verificar a forma da previsão (se deve ser um vetor de uma única previsão)
     assert prediction.shape == (1, )
+
+# Testar a API
+def test_api_prediction():
+    response = requests.post("http://localhost:5003/predict_default", json={
+        "ID": 1,
+        "LIMIT_BAL": 50000,
+        "SEX": 1,
+        "EDUCATION": 2,
+        "MARRIAGE": 1,
+        "AGE": 30,
+        "PAY_0": 0,
+        "PAY_2": 0,
+        "PAY_3": 0,
+        "PAY_4": 0,
+        "PAY_5": 0,
+        "PAY_6": 0,
+        "BILL_AMT1": 1000,
+        "BILL_AMT2": 900,
+        "BILL_AMT3": 950,
+        "BILL_AMT4": 980,
+        "BILL_AMT5": 1000,
+        "BILL_AMT6": 1100,
+        "PAY_AMT1": 200,
+        "PAY_AMT2": 200,
+        "PAY_AMT3": 150,
+        "PAY_AMT4": 180,
+        "PAY_AMT5": 200,
+        "PAY_AMT6": 190
+    })
+
+    assert response.status_code == 200
+    assert "default_prediction" in response.json()
+    assert response.json()["default_prediction"] in [0, 1]
