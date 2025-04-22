@@ -35,5 +35,6 @@ def test_predict_default_prediction():
     })
     assert response.status_code == 200
     assert "default_prediction" in response.json()
-    assert isinstance(response.json()["prediction"], (int, float))
-    assert response.json()["prediction"] == 0
+    assert isinstance(response.json()["default_prediction"], (int, float))
+    assert response.json()["default_prediction"] == 0
+

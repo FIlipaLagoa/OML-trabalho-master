@@ -156,3 +156,11 @@ def test_api_prediction():
     assert response.status_code == 200
     assert "default_prediction" in response.json()
     assert response.json()["default_prediction"] in [0, 1]
+
+
+
+def test_always_passes():
+    assert True
+
+def test_always_fails():
+    assert False
