@@ -36,6 +36,7 @@ Atributos do modelo:
 
 """
 class LendingRequest(BaseModel):
+    ID: int = 1
     LIMIT_BAL: float = 20000.0 
     SEX: conint(ge=1, le=2) = 2  
     EDUCATION: conint(ge=1, le=6) = 2  
@@ -85,7 +86,7 @@ async def startup_event():
     in the local mlruns directory.
     """
 
-    mlflow.set_tracking_uri("./mlruns")
+    mlflow.set_tracking_uri("http://localhost:5000")  # ou o endereço onde o MLflow server está a correr
 
 
     with open('./config/app.json') as f:

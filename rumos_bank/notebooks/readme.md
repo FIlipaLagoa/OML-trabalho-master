@@ -29,3 +29,16 @@ Após executarem este comando, vão poder ver a UI do mlflow no vosso browser ac
 `http://127.0.0.1:5000`
 
 (se tiverem alterado a porta em que o mlflow UI é iniciado então devem de alterar também aqui o 5000 por essa porta)
+
+
+# 3 ver a Fast API 
+
+Como estamos na porta 5003 depois de fazer o
+
+python ./src/main.py
+
+abrir o esge e colocar em cima:
+
+http://127.0.0.1:5003/docs
+
+# PS: não esquecer do /docs
