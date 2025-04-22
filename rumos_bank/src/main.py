@@ -85,7 +85,7 @@ async def startup_event():
     in the local mlruns directory.
     """
 
-    mlflow.set_tracking_uri("file:///C:/Users/User/python_programing/OML-trabalho-master/rumos_bank/mlruns")
+    mlflow.set_tracking_uri("./mlruns")
 
 
     with open('./config/app.json') as f:
@@ -110,5 +110,4 @@ async def predict(input: LendingRequest):
     return {"default_prediction": prediction.tolist()[0]}
 
 # Run the app on port 5003
-if __name__ == "__main__":
-    uvicorn.run(app=app, port=5003)
+uvicorn.run(app=app, port=5003)
