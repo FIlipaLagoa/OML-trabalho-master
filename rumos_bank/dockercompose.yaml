@@ -2,7 +2,7 @@ services:
 
   mlflow-tracking-server:
     image: ghcr.io/mlflow/mlflow
-    command: mlflow ui --port 5000 --host 0.0.0.0 --backend-store-uri ./mlruns --artifacts-destination ./mlruns
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /mlflow/mlruns --default-artifact-root /mlflow/mlruns
     volumes:
      - ./modelos:/mlruns
     container_name: tracking
@@ -21,6 +21,6 @@ services:
     image: rumos-bank-service
     container_name: service
     ports:
-     - 5002:5002
-
-
+      - "5002:5002"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-tracking-server:5000
