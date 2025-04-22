@@ -18,6 +18,7 @@ def model() -> mlflow.pyfunc.PyFuncModel:
 def test_model_out(model: mlflow.pyfunc.PyFuncModel):
     # Exemplo de input para o modelo (um cliente sem calote)
     input_data = pd.DataFrame.from_records([{
+        "ID": 1,
         'LIMIT_BAL': 50000,  # Quantidade de crédito
         'SEX': 1,  # Gênero (1 = masculino, 2 = feminino)
         'EDUCATION': 2,  # Grau de educação (1 = pós-graduação, 2 = universitário, ...)
@@ -53,6 +54,7 @@ def test_model_out(model: mlflow.pyfunc.PyFuncModel):
 def test_model_inv(model: mlflow.pyfunc.PyFuncModel):
     # Exemplo de input para o modelo (um cliente com pagamento atrasado)
     input_data = pd.DataFrame.from_records([{
+        "ID": 1,
         'LIMIT_BAL': 50000,  # Quantidade de crédito
         'SEX': 1,  # Gênero (1 = masculino, 2 = feminino)
         'EDUCATION': 2,  # Grau de educação
@@ -88,6 +90,7 @@ def test_model_inv(model: mlflow.pyfunc.PyFuncModel):
 def test_model_out_shape(model: mlflow.pyfunc.PyFuncModel):
     # Exemplo de input para o modelo
     input_data = pd.DataFrame.from_records([{
+        "ID": 1,
         'LIMIT_BAL': 50000,  # Quantidade de crédito
         'SEX': 1,  # Gênero
         'EDUCATION': 2,  # Grau de educação
