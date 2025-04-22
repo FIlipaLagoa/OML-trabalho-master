@@ -34,6 +34,6 @@ def test_predict_default_prediction():
         'PAY_AMT6': 500                   # Pagamento anterior em abril de 2005
     })
     assert response.status_code == 200
-    assert "prediction" in response.json()
+    assert "default_prediction" in response.json()
     assert isinstance(response.json()["prediction"], (int, float))
     assert response.json()["prediction"] == 0

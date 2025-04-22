@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
 import mlflow
+import requests
+
 
 
 @pytest.fixture(scope="module")
