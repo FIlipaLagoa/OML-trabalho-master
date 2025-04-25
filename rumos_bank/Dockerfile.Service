@@ -5,13 +5,13 @@ FROM continuumio/miniconda3
 WORKDIR /src
  
 # Copia o ficheiro de definição do ambiente para o contentor
-COPY conda.linux.yaml .
+COPY conda-minimal.yaml .
 COPY config config 
 COPY src src
  
 # Cria o ambiente conda a partir do ficheiro conda.yaml # 
 
-RUN conda env create -f conda.linux.yaml
+RUN conda env create -f conda-minimal.yaml
 
 # Garantir que o ambiente está disponível no PATH
 SHELL ["conda", "run", "-n", "OML", "/bin/bash", "-c"]
