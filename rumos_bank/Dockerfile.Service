@@ -11,7 +11,10 @@ COPY src src
  
 # Cria o ambiente conda a partir do ficheiro conda.yaml # 
 
-RUN conda env create -f conda.yaml
+RUN conda env create -f conda.linux.yaml
+
+# Garantir que o ambiente está disponível no PATH
+SHELL ["conda", "run", "-n", "OML", "/bin/bash", "-c"]
 
 # Executa a aplicação FastAPI # 
 
