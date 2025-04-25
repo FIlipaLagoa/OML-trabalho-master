@@ -26,7 +26,7 @@ Por causa desta prévia má experiência, o banco desta vez quer ter garantias q
    git clone https://github.com/FIlipaLagoa/RumosBank-FinalProject.git
    cd OML-trabalho-master
    ```
-# 2. Criar e ativa um ambiente virtual:
+# 2. Criar e ativar um ambiente virtual:
 
 ```
 conda create -n OML python=3.12

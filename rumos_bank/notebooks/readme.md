@@ -4,7 +4,7 @@
 
 Em primeiro lugar criei o notebook 1, onde:
 - Criei uma experiência
-- Usei o mlflow para logar e registar os . De todos os modelos testados selecionei a random forest e por isso apenas está representada na pipelina a random forest.
+- Usei o mlflow para logar os modelos. De todos os modelos testados selecionei a random forest e por isso apenas está representada na pipelina e no model registry do notebook2.
 
 No notebook 2:
 - Criei um Model Registry com base no que já tinha feito

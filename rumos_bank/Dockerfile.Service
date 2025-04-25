@@ -5,7 +5,7 @@ FROM continuumio/miniconda3
 WORKDIR /src
  
 # Copia o ficheiro de definição do ambiente para o contentor
-COPY conda.yaml .
+COPY conda.linux.yaml .
 COPY config config 
 COPY src src
  
