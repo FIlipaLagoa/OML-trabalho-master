@@ -1,4 +1,6 @@
 {
+    "tracking_base_url": "http://127.0.0.1:5000/#/models",
+    "tracking_port": "5000",
     "model_name": "random_forest",
     "model_version": 1
 }

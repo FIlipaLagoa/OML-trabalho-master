@@ -35,6 +35,12 @@ Atributos do modelo:
     PAY_AMT6: float Amount of previous payment in April, 2005 (NT dollar)
 
 """
+
+# Load the application configuration
+with open('./config/app.json') as f:
+    config = json.load(f)
+
+
 class LendingRequest(BaseModel):
     ID: int = 1
     LIMIT_BAL: float = 20000.0 
@@ -87,10 +93,6 @@ async def startup_event():
     """
 
     mlflow.set_tracking_uri("http://localhost:5000")  
-
-
-    with open('./config/app.json') as f:
-        config = json.load(f)
 
     app.model = mlflow.pyfunc.load_model(
         model_uri=f"models:/{config['model_name']}/{config['model_version']}"
