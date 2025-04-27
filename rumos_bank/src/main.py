@@ -82,23 +82,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Carregar modelo com base na configuração
 @app.on_event("startup")
 async def startup_event():
 
-    """
-    Set up actions to perform when the app starts.
+    mlflow.set_tracking_uri(f"{config['tracking_base_url']}:{config['tracking_port']}")
 
-    Configures the tracking URI for MLflow to locate the model metadata
-    in the local mlruns directory.
-    """
+    # Load the registered model specified in the configuration
+    model_uri = f"models:/{config['model_name']}@{config['model_version']}"
+    app.model = mlflow.pyfunc.load_model(model_uri = model_uri)
+    
+    print(f"Loaded model {model_uri}")
 
-    mlflow.set_tracking_uri("http://localhost:5000")  
-
-    app.model = mlflow.pyfunc.load_model(
-        model_uri=f"models:/{config['model_name']}/{config['model_version']}"
-    )
-
-    print(f"Modelo carregado: {config['model_name']}/{config['model_version']}")
 
 
 @app.post("/predict_default")
@@ -112,5 +107,5 @@ async def predict(input: LendingRequest):
     # Return the prediction result as a JSON response
     return {"default_prediction": prediction.tolist()[0]}
 
-# Run the app on port 5003
-uvicorn.run(app=app, port=5003)
+# Executar aplicação
+uvicorn.run(app=app, port=config["service_port"], host="0.0.0.0")

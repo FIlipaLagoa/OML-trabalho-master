@@ -13,8 +13,7 @@ COPY src src
 
 RUN conda env create -f conda-minimal.yaml
 
-# Garantir que o ambiente está disponível no PATH
-SHELL ["conda", "run", "-n", "OML", "/bin/bash", "-c"]
+EXPOSE 5003
 
 # Executa a aplicação FastAPI # 
 

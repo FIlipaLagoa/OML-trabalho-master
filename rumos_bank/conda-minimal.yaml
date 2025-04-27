@@ -1,4 +1,4 @@
-name: rumos-bank-service
+name: OML
 channels:
   - conda-forge
 dependencies:
