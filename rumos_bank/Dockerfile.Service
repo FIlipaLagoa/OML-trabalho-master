@@ -6,12 +6,14 @@ WORKDIR /src
  
 # Copia o ficheiro de definição do ambiente para o contentor
 COPY conda-minimal.yaml .
-COPY config config 
-COPY src src
  
 # Cria o ambiente conda a partir do ficheiro conda.yaml # 
 
 RUN conda env create -f conda-minimal.yaml
+
+# Copia o código da aplicação para o contentor
+COPY config config
+COPY src src
 
 EXPOSE 5003
 

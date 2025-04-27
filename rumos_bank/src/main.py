@@ -5,6 +5,8 @@ from pydantic import BaseModel, conint
 import pandas as pd
 import json
 import uvicorn
+import time
+
 
 # Define the inputs expected in the request body as JSON
 
@@ -85,14 +87,21 @@ app.add_middleware(
 # Carregar modelo com base na configuração
 @app.on_event("startup")
 async def startup_event():
-
     mlflow.set_tracking_uri(f"{config['tracking_base_url']}:{config['tracking_port']}")
-
-    # Load the registered model specified in the configuration
     model_uri = f"models:/{config['model_name']}@{config['model_version']}"
-    app.model = mlflow.pyfunc.load_model(model_uri = model_uri)
-    
-    print(f"Loaded model {model_uri}")
+
+    retries = 5
+    for attempt in range(retries):
+        try:
+            app.model = mlflow.pyfunc.load_model(model_uri=model_uri)
+            print(f"Loaded model {model_uri}")
+            break
+        except Exception as e:
+            print(f"Tentativa {attempt+1} falhou: {e}")
+            time.sleep(5)
+    else:
+        print("Falha ao carregar o modelo depois de múltiplas tentativas.")
+        app.model = None
 
 
 

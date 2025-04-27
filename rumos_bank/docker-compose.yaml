@@ -4,7 +4,7 @@ services:
     image: ghcr.io/mlflow/mlflow
     command: mlflow ui --port 5000 --host 0.0.0.0 --backend-store-uri /mlruns --artifacts-destination /mlruns
     volumes:
-      - ./modelos:/mlruns
+      - c:/Users/User/python_programing/OML-trabalho-master/mlruns:/mlruns
     container_name: tracking-mlflow
     ports:
       - "5000:5000"
@@ -20,4 +20,3 @@ services:
     container_name: rumos-bank-service-app
     ports:
       - "5003:5003"
-
