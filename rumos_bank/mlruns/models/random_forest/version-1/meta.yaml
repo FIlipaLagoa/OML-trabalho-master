@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1746122535849
+current_stage: None
+description: null
+last_updated_timestamp: 1746122535849
+name: random_forest
+run_id: 79dd54ea832441f4ad4392f10bf2c54b
+run_link: null
+source: file:///c:/Users/User/python_programing/OML-trabalho-master/rumos_bank/notebooks/../../mlruns/200934167665448578/79dd54ea832441f4ad4392f10bf2c54b/artifacts/rf_pipeline
+status: READY
+status_message: null
+storage_location: file:///c:/Users/User/python_programing/OML-trabalho-master/rumos_bank/notebooks/../../mlruns/200934167665448578/79dd54ea832441f4ad4392f10bf2c54b/artifacts/rf_pipeline
+user_id: null
+version: 1
