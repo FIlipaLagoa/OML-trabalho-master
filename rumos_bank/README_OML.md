@@ -38,10 +38,11 @@ Contudo, o ambiente conda-mini.yaml foi necessário adicionar ao projeto para qu
 
 ### O que consegui fazer:
 - MLflow com model registry e pipeline
-- Champion definido: Random Forest
+- Champion definido: random_forest
 - Docker Compose
-- conda-mini.yaml (dependências Linux)
+- conda-minimal.yaml (dependências Linux)
 - conda.yaml para os notebooks
+- Proposta de ficheiro para a pipeline cicd
 
 ### O que não consegui fazer:
 Não consegui correr a pipeline porque só fica disponível quando se transita tudo com sucesso para o GitHub — e tal não foi possível.
@@ -96,8 +97,8 @@ OML-trabalho-master/
 # 1. Criar uma cópia local do repositório que está no github:
 
    ```
-   git clone https://github.com/FIlipaLagoa/RumosBank-FinalProject.git
-   cd OML-trabalho-master
+   git clone https://github.com/FIlipaLagoa/OML-trabalho-master
+   
    ```
 # 2. Criar e ativar um ambiente virtual:
 
@@ -141,8 +142,6 @@ conda env create -f conda.yaml
 conda activate OML
 
 ```
-
-
 
 
 
