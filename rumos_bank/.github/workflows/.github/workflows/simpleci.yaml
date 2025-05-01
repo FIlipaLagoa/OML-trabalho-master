@@ -21,8 +21,7 @@ jobs:
 
       - name: Configurar Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Subir serviços Docker (mlflow + rumos-bank-service)
+      - name: Subir serviços Docker (mlflow-tracking-server + rumos-bank-service)
         run: docker compose up -d --build
 
       - name: Instalar Miniconda + Ambiente Conda para testes
