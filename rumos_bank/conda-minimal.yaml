@@ -1,0 +1,15 @@
+name: OML
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - mlflow
+      - fastapi
+      - uvicorn
+      - pandas
+      - scikit-learn
+      - requests
+      - joblib
+      - nbconvert

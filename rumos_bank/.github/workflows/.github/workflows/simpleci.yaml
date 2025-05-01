@@ -1,0 +1,45 @@
+name: Pipeline CI/CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  cicd:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Subir serviços Docker (mlflow-tracking-server + rumos-bank-service)
+        run: docker compose up -d --build
+
+      - name: Instalar Miniconda + Ambiente Conda para testes
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: conda-minimal.yaml
+          activate-environment: OML
+
+      - name: Executar testes no serviço
+        run: conda run --no-capture-output -n OML pytest
+
+      - name: Login no GitHub Container Registry (GHCR)
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push da imagem rumos-bank-service para o GHCR
+        run: docker push ghcr.io/filipalagoa/rumos-bank-service:latest

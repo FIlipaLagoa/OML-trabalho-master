@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/User/python_programing/OML-trabalho-master/rumos_bank/notebooks/../../mlruns/200934167665448578/79dd54ea832441f4ad4392f10bf2c54b/artifacts
+end_time: 1746122536557
+entry_point_name: ''
+experiment_id: '200934167665448578'
+lifecycle_stage: active
+run_id: 79dd54ea832441f4ad4392f10bf2c54b
+run_name: Random Forest Run - C0.1 - pipeline
+run_uuid: 79dd54ea832441f4ad4392f10bf2c54b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746122488409
+status: 3
+tags: []
+user_id: User

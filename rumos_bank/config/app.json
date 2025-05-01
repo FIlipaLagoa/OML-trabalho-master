@@ -1,0 +1,8 @@
+{
+    "model_name": "random_forest",
+    "model_version": "champion",
+    "tracking_base_url": "http://tracking-mlflow",
+    "tracking_port": 5000,
+    "service_base_url": "http://rumos-bank-service-app",
+    "service_port": 5003
+}
